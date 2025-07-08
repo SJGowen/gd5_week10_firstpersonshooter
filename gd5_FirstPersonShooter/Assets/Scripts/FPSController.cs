@@ -22,7 +22,10 @@ public class FPSController : MonoBehaviour
     public float stillRegenRate = 0.1f;
     public float walkRegenRate = 0.05f;
     public float drainRate = 0.3f;
+
     public Slider staminaBar;
+    Color minColor = Color.red;
+    Color maxColor = Color.green;
 
     void Start()
     {
@@ -54,6 +57,13 @@ public class FPSController : MonoBehaviour
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
+            // Make either right mouse button or middle mouse button make the player move forward
+            if (verticalInput == 0 && 
+                (Input.GetMouseButton(1) || Input.GetMouseButton(2)))
+            {
+                verticalInput += 1;
+            }   
+            
             // Captured for later use
             isIdle = verticalInput == 0;
 
@@ -85,7 +95,8 @@ public class FPSController : MonoBehaviour
         // Handle running and stamina
         float stamina = staminaBar.value;
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
+        // Make Left Shift or middle mouse button make the player run
+        bool isRunning = (Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(2)) && stamina > 0;
         float moveSpeed = isRunning ? runSpeed : walkSpeed;
 
         characterController.Move(moveSpeed * Time.deltaTime * moveDirection);
@@ -95,5 +106,6 @@ public class FPSController : MonoBehaviour
         if (isIdle) stamina += stillRegenRate * Time.deltaTime;
 
         staminaBar.value = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
+        //staminaBar.image.color = Color.Lerp(minColor, maxColor, staminaBar.value / staminaBar.maxValue);
     }
 }
