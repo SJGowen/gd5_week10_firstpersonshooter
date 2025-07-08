@@ -6,7 +6,8 @@ public class FPSController : MonoBehaviour
     private Camera playerCamera;
     [SerializeField] float walkSpeed = 6f;
     [SerializeField] float runSpeed = 10f;
-    [SerializeField] float jumpForce = 2f;
+    private bool canDoubleJump = false;
+    [SerializeField] float jumpForce = 1.5f;
     [SerializeField] float gravity = 6f;
 
     public float mouseSensitivity = 2f;
@@ -18,7 +19,9 @@ public class FPSController : MonoBehaviour
     CharacterController characterController;
 
     public float stamina = 0.5f;
-    public float regenRate = 0.1f, drainRate = 0.3f;
+    public float stillRegenRate = 0.1f;
+    public float walkRegenRate = 0.05f;
+    public float drainRate = 0.3f;
     public Slider staminaBar;
 
     void Start()
@@ -55,8 +58,9 @@ public class FPSController : MonoBehaviour
             isIdle = verticalInput == 0;
 
             float moveDirectionY = moveDirection.y;
-
             moveDirection = (horizontalInput * transform.right) + (verticalInput * transform.forward);
+
+            canDoubleJump = true;
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -69,23 +73,27 @@ public class FPSController : MonoBehaviour
         }
         else
         {
+            if (Input.GetButtonDown("Jump") && canDoubleJump)
+            {
+                moveDirection.y = jumpForce;
+                canDoubleJump = false;
+            }
+
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
         // Handle running and stamina
-        if (staminaBar != null)
-        {
-            float stamina = staminaBar.value;
+        float stamina = staminaBar.value;
 
-            bool isRunning = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
-            float moveSpeed = isRunning ? runSpeed : walkSpeed;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
+        float moveSpeed = isRunning ? runSpeed : walkSpeed;
 
-            characterController.Move(moveSpeed * Time.deltaTime * moveDirection);
+        characterController.Move(moveSpeed * Time.deltaTime * moveDirection);
 
-            if (!isIdle && isRunning) stamina -= drainRate * Time.deltaTime;
-            if (isIdle) stamina += regenRate * Time.deltaTime;
+        if (!isIdle && isRunning) stamina -= drainRate * Time.deltaTime;
+        if (!isIdle && !isRunning) stamina += walkRegenRate * Time.deltaTime;
+        if (isIdle) stamina += stillRegenRate * Time.deltaTime;
 
-            staminaBar.value = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
-        }
+        staminaBar.value = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
     }
 }
