@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4221253, g: 0.62766325, b: 0.9622642, a: 1}
+  m_Color: {r: 0.9811321, g: 0.7130021, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunDamage: 1
-  fireRate: 0.5
+  fireRate: 0.3
   fireRange: 50
   hitForce: 10
   shotDuration: 0.2
@@ -392,7 +392,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   cubePrefab: {fileID: 3977170140041246402, guid: 716a7d1fa6eee3943ae30222adbf7fdb, type: 3}
+  evaPrefab: {fileID: 5657981757134276087, guid: 09b3072564824c24eb05be74a581eb95, type: 3}
   laserTempSlider: {fileID: 899376100}
+  laserTempFillImage: {fileID: 1581787862}
 --- !u!120 &345826975
 LineRenderer:
   serializedVersion: 2
@@ -795,7 +797,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Laser \xB0"
+  m_text: "Laser \xB0's"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -910,7 +912,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 415.3, y: 37.299988}
+  m_AnchoredPosition: {x: 415.30005, y: 37.30005}
   m_SizeDelta: {x: 237.4095, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &899376100
@@ -1263,7 +1265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 154.3, y: 37.299988}
+  m_AnchoredPosition: {x: 154.30005, y: 37.30005}
   m_SizeDelta: {x: 237.4095, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399385898
@@ -1554,6 +1556,7 @@ MonoBehaviour:
   walkRegenRate: 0.05
   drainRate: 0.3
   staminaBar: {fileID: 1399385898}
+  fillImage: {fileID: 299607324}
 --- !u!1 &1675066610
 GameObject:
   m_ObjectHideFlags: 0

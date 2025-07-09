@@ -24,6 +24,7 @@ public class FPSController : MonoBehaviour
     public float drainRate = 0.3f;
 
     public Slider staminaBar;
+    public Image fillImage;
     Color minColor = Color.red;
     Color maxColor = Color.green;
 
@@ -107,5 +108,7 @@ public class FPSController : MonoBehaviour
 
         staminaBar.value = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
         //staminaBar.image.color = Color.Lerp(minColor, maxColor, staminaBar.value / staminaBar.maxValue);
+        float valuePercent = staminaBar.value / staminaBar.maxValue;
+        fillImage.color = Color.Lerp(Color.red, Color.green, valuePercent);
     }
 }
