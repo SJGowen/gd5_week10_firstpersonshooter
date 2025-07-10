@@ -32,6 +32,9 @@ public class FPSController : MonoBehaviour
     bool isIdle = false;
     bool isRunning = false;
 
+    int staminaBarUpdateCounter = 0;
+    const int staminaBarUpdateInterval = 10;
+
     void Start()
     {
         playerCamera = Camera.main;
@@ -115,8 +118,18 @@ public class FPSController : MonoBehaviour
         if (!isIdle && !isRunning) stamina += walkRegenRate * Time.deltaTime;
         if (isIdle) stamina += stillRegenRate * Time.deltaTime;
 
-        staminaBar.value = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
-        float valuePercent = staminaBar.value / staminaBar.maxValue;
-        fillImage.color = Color.Lerp(Color.red, Color.green, valuePercent);
+        staminaBarUpdateCounter++;
+        if (Mathf.IsPowerOfTwo(staminaBarUpdateCounter))
+        {
+            stamina = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
+            staminaBar.value = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
+        }
+
+        if (staminaBarUpdateCounter >= staminaBarUpdateInterval)
+        {
+            float valuePercent = staminaBar.value / staminaBar.maxValue;
+            fillImage.color = Color.Lerp(Color.red, Color.green, valuePercent);
+            staminaBarUpdateCounter = 0;
+        }
     }
 }
