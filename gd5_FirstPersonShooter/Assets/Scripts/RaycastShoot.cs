@@ -56,29 +56,7 @@ public class RaycastShoot : MonoBehaviour
             // RaycastHit hit;
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out var hit, fireRange, layerMask))
             {
-                laserLine.SetPosition(1, hit.point);
-
-                Shootable target = hit.transform.GetComponent<Shootable>();
-                if (target != null)
-                {
-                    //Debug.Log($"Hit: {hit.transform.name} with damage {gunDamage}.");
-                    target.Damage(gunDamage);
-                }
-
-                Enemy ragdollEnemy = hit.transform.GetComponent<Enemy>();
-
-                if (ragdollEnemy != null)
-                {
-                    //Debug.Log($"Hit: {hit.transform.name}, triggering ragdoll.");
-                    ragdollEnemy.TriggerRagdoll();
-                    Destroy(hit.transform.gameObject, 5f);
-                }
-
-                if (hit.rigidbody != null)
-                {
-                    //Debug.Log($"Hit: {hit.transform.name}, applying hitForce: {hitForce}.");
-                    hit.rigidbody.AddForce(-hit.normal * hitForce, ForceMode.Impulse);
-                }
+                HandleLaserHit(hit);
             }
             else
             {
@@ -86,6 +64,33 @@ public class RaycastShoot : MonoBehaviour
             }
 
             UpdateLaserTempBar(0.1f);
+        }
+    }
+
+    private void HandleLaserHit(RaycastHit hit)
+    {
+        laserLine.SetPosition(1, hit.point);
+
+        Shootable target = hit.transform.GetComponent<Shootable>();
+        if (target != null)
+        {
+            //Debug.Log($"Hit: {hit.transform.name} with damage {gunDamage}.");
+            target.Damage(gunDamage);
+        }
+
+        Enemy ragdollEnemy = hit.transform.GetComponent<Enemy>();
+
+        if (ragdollEnemy != null)
+        {
+            //Debug.Log($"Hit: {hit.transform.name}, triggering ragdoll.");
+            ragdollEnemy.TriggerRagdoll();
+            Destroy(hit.transform.gameObject, 5f);
+        }
+
+        if (hit.rigidbody != null)
+        {
+            //Debug.Log($"Hit: {hit.transform.name}, applying hitForce: {hitForce}.");
+            hit.rigidbody.AddForce(-hit.normal * hitForce, ForceMode.Impulse);
         }
     }
 
