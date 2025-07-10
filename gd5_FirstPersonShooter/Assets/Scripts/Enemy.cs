@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : Shootable
 {
@@ -18,6 +19,7 @@ public class Enemy : Shootable
             ragdollRB.isKinematic = false;
         }
 
+        GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Collider>().enabled = false;
     }
 }

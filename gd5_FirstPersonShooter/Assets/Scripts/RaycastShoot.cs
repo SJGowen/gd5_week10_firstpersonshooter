@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class RaycastShoot : MonoBehaviour
@@ -156,8 +157,13 @@ public class RaycastShoot : MonoBehaviour
                         12, // Give some height so that Eva can be ontop of buildings & trees
                         Random.Range(-spawnAreaRange, spawnAreaRange)
                     );
-                    // Create a Eva Ragdoll at a random position
-                    Instantiate(evaPrefab, randomPosition, evaPrefab.transform.rotation);
+
+                    // Find the nearest NavMesh position within a certain range
+                    if (NavMesh.SamplePosition(randomPosition, out var hit, 12f, NavMesh.AllAreas))
+                    {
+                        // Spawn Eva at the valid NavMesh position
+                        Instantiate(evaPrefab, hit.position, evaPrefab.transform.rotation);
+                    }
                 }
             }
 
