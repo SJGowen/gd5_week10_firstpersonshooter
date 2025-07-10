@@ -28,6 +28,10 @@ public class FPSController : MonoBehaviour
     Color minColor = Color.red;
     Color maxColor = Color.green;
 
+    // Store isIdle and isRunning as fields so they can be shared between methods
+    bool isIdle = false;
+    bool isRunning = false;
+
     void Start()
     {
         playerCamera = Camera.main;
@@ -38,34 +42,37 @@ public class FPSController : MonoBehaviour
 
     void Update()
     {
-        // Horizontal rotation via Q and E keys
+        HandleRotation();
+        HandleMovementAndJumping();
+        HandleStaminaAndRunning();
+    }
+
+    void HandleRotation()
+    {
         float rotationInput = Input.GetAxis("KeyRotate");
         transform.Rotate(Vector3.up, rotationInput * keyRotationSpeed * Time.deltaTime);
 
-        // Horizontal rotation based on mouse X movement
         transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivity);
 
-        // Vertical rotation based on mouse Y movement
         rotationX += -Input.GetAxis("Mouse Y") * mouseSensitivity;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
 
         transform.Rotate(Vector3.up, rotationInput * keyRotationSpeed * Time.deltaTime);
+    }
 
-        // Control Movement and Jumping
-        bool isIdle = false;
+    void HandleMovementAndJumping()
+    {
         if (characterController.isGrounded)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
             // Make either right mouse button or middle mouse button make the player move forward
-            if (verticalInput == 0 && 
-                (Input.GetMouseButton(1) || Input.GetMouseButton(2)))
+            if (verticalInput == 0 && (Input.GetMouseButton(1) || Input.GetMouseButton(2)))
             {
                 verticalInput += 1;
-            }   
-            
-            // Captured for later use
+            }
+
             isIdle = verticalInput == 0;
 
             float moveDirectionY = moveDirection.y;
@@ -92,12 +99,14 @@ public class FPSController : MonoBehaviour
 
             moveDirection.y -= gravity * Time.deltaTime;
         }
+    }
 
-        // Handle running and stamina
+    void HandleStaminaAndRunning()
+    {
         float stamina = staminaBar.value;
 
         // Make Left Shift or middle mouse button make the player run
-        bool isRunning = (Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(2)) && stamina > 0;
+        isRunning = (Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(2)) && stamina > 0;
         float moveSpeed = isRunning ? runSpeed : walkSpeed;
 
         characterController.Move(moveSpeed * Time.deltaTime * moveDirection);
@@ -107,7 +116,6 @@ public class FPSController : MonoBehaviour
         if (isIdle) stamina += stillRegenRate * Time.deltaTime;
 
         staminaBar.value = Mathf.Clamp(stamina, 0, staminaBar.maxValue);
-        //staminaBar.image.color = Color.Lerp(minColor, maxColor, staminaBar.value / staminaBar.maxValue);
         float valuePercent = staminaBar.value / staminaBar.maxValue;
         fillImage.color = Color.Lerp(Color.red, Color.green, valuePercent);
     }
