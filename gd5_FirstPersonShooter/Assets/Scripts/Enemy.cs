@@ -21,5 +21,6 @@ public class Enemy : Shootable
 
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Collider>().enabled = false;
+        GetComponent<Animator>().enabled = false;
     }
 }

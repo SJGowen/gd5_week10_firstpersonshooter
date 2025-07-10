@@ -9,7 +9,8 @@ public class RaycastShoot : MonoBehaviour
     [SerializeField] public float fireRate = 0.3f;
     [SerializeField] public float fireRange = 50f;
     [SerializeField] public float hitForce = 10f;
-    
+    [SerializeField] public float aimInaccuracy = 0.02f;
+
     float spawnAreaRange = 8f;
     float cubeScale = 1f;
     float nextFire;
@@ -23,8 +24,9 @@ public class RaycastShoot : MonoBehaviour
 
     public LayerMask layerMask;
     public GameObject cubePrefab;
-    public GameObject evaPrefab;
-    int EvasToSpawn = 0;
+    public GameObject enemy;
+    int EnemiesToSpawn = 0;
+    static float WaterCircleRadius = 4.5f;
 
     public Slider laserTempSlider;
     public Image laserTempFillImage;
@@ -36,13 +38,13 @@ public class RaycastShoot : MonoBehaviour
         laserLine = GetComponent<LineRenderer>();
         StartCoroutine(SpawnSingleCube());
         StartCoroutine(CoolDownLaserSlider());
-        StartCoroutine(SpawnEvaRagdoll());
+        StartCoroutine(SpawnRagdoll());
     }
 
     void Update()
     {
         if (laserTempSlider.value < 1.0f && Input.GetButtonDown("Fire1") && Time.time > nextFire) // Single Shot
-        // if (Input.GetButton("Fire1") && Time.time > nextFire) // Continuous Fire
+        // if (laserTempSlider.value < 1.0f && Input.GetButton("Fire1") && Time.time > nextFire) // Continuous Fire
         {
             nextFire = Time.time + fireRate;
             StartCoroutine(ShootingEffects());
@@ -54,8 +56,14 @@ public class RaycastShoot : MonoBehaviour
 
             Debug.DrawRay(rayOrigin, fpsCam.transform.forward * fireRange, Color.red);
 
+            Vector3 randomDirection = new Vector3(
+                Random.Range(-aimInaccuracy, aimInaccuracy),
+                Random.Range(-aimInaccuracy, aimInaccuracy),
+                Random.Range(-aimInaccuracy, aimInaccuracy)
+            );
+
             // RaycastHit hit;
-            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out var hit, fireRange, layerMask))
+            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward + randomDirection, out var hit, fireRange, layerMask))
             {
                 HandleLaserHit(hit);
             }
@@ -141,34 +149,43 @@ public class RaycastShoot : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnEvaRagdoll()
+    IEnumerator SpawnRagdoll()
     {
         while (true)
         {
-            GameObject[] evas = GameObject.FindGameObjectsWithTag("Eva");
-            if (evas.Length < 1)
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies.Length < 1)
             {
-                EvasToSpawn++;
-                
-                for (var i = 0; i < EvasToSpawn; i++)
+                EnemiesToSpawn++;
+                int foesToSpawn = EnemiesToSpawn;
+                while (foesToSpawn > 0)
                 {
+                    // Spawn a new ragdoll
                     Vector3 randomPosition = new(
                         Random.Range(-spawnAreaRange, spawnAreaRange),
-                        12, // Give some height so that Eva can be ontop of buildings & trees
+                        12, // Give some height so that enemy can be ontop of buildings
                         Random.Range(-spawnAreaRange, spawnAreaRange)
                     );
 
                     // Find the nearest NavMesh position within a certain range
-                    if (NavMesh.SamplePosition(randomPosition, out var hit, 12f, NavMesh.AllAreas))
+                    if (!IsWithinFountainArea(randomPosition) &&
+                        NavMesh.SamplePosition(randomPosition, out var hit, 12f, NavMesh.AllAreas))
                     {
                         // Spawn Eva at the valid NavMesh position
-                        Instantiate(evaPrefab, hit.position, evaPrefab.transform.rotation);
+                        Instantiate(enemy, hit.position, enemy.transform.rotation);
+                        foesToSpawn--;
                     }
                 }
             }
 
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    private static bool IsWithinFountainArea(Vector3 position)
+    {
+        return position.x > -WaterCircleRadius && position.x < WaterCircleRadius && 
+            position.z > -WaterCircleRadius && position.z < WaterCircleRadius;
     }
 
     private void UpdateLaserTempBar(float amountToAdd)

@@ -386,13 +386,14 @@ MonoBehaviour:
   fireRate: 0.3
   fireRange: 50
   hitForce: 10
+  aimInaccuracy: 0.02
   shotDuration: 0.2
   gunEnd: {fileID: 2057950479}
   layerMask:
     serializedVersion: 2
     m_Bits: 55
   cubePrefab: {fileID: 3977170140041246402, guid: 716a7d1fa6eee3943ae30222adbf7fdb, type: 3}
-  evaPrefab: {fileID: 5657981757134276087, guid: 09b3072564824c24eb05be74a581eb95, type: 3}
+  warZombie: {fileID: 1839047594404187411, guid: 9605129e3e05ddb4ab4d7674d28ef405, type: 3}
   laserTempSlider: {fileID: 899376100}
   laserTempFillImage: {fileID: 1581787862}
 --- !u!120 &345826975
@@ -689,7 +690,7 @@ Transform:
   m_GameObject: {fileID: 542328204}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: -0.026, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1525,7 +1526,7 @@ Transform:
   m_GameObject: {fileID: 1655354995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 6, z: 0}
+  m_LocalPosition: {x: -5.18, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1603,7 +1604,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1143760952897490836, guid: dfa7bdfa7fed14714998e95b241a8375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.049
       objectReference: {fileID: 0}
     - target: {fileID: 1143760952897490836, guid: dfa7bdfa7fed14714998e95b241a8375, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1611,7 +1612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1143760952897490836, guid: dfa7bdfa7fed14714998e95b241a8375, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 1143760952897490836, guid: dfa7bdfa7fed14714998e95b241a8375, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2259,6 +2260,7 @@ GameObject:
   - component: {fileID: 6125154776186591512}
   - component: {fileID: 8006750179806944476}
   - component: {fileID: 8006750179806944477}
+  - component: {fileID: 8006750179806944478}
   m_Layer: 0
   m_Name: Palm.010
   m_TagString: Untagged
@@ -2475,6 +2477,7 @@ GameObject:
   - component: {fileID: 6003390732574283468}
   - component: {fileID: 192700965093147118}
   - component: {fileID: 6003390732574283469}
+  - component: {fileID: 6003390732574283470}
   m_Layer: 0
   m_Name: Palm.006
   m_TagString: Untagged
@@ -2817,6 +2820,7 @@ GameObject:
   - component: {fileID: 1149673425413011215}
   - component: {fileID: 8233163978682981112}
   - component: {fileID: 8233163978682981113}
+  - component: {fileID: 8233163978682981114}
   m_Layer: 0
   m_Name: Palm.011
   m_TagString: Untagged
@@ -2897,6 +2901,7 @@ GameObject:
   - component: {fileID: 2092332494135039856}
   - component: {fileID: 4116862810248778521}
   - component: {fileID: 4116862810248778522}
+  - component: {fileID: 4116862810248778523}
   m_Layer: 0
   m_Name: Palm.001
   m_TagString: Untagged
@@ -3149,6 +3154,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &4116862810248778523
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430528323571137326}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!23 &4176427870751953245
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3277,6 +3298,7 @@ GameObject:
   - component: {fileID: 1201036070173678559}
   - component: {fileID: 7997964654558457474}
   - component: {fileID: 7997964654558457475}
+  - component: {fileID: 7997964654558457476}
   m_Layer: 0
   m_Name: Palm.003
   m_TagString: Untagged
@@ -3680,6 +3702,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &6003390732574283470
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835630795518837508}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!33 &6122508061573327710
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3791,6 +3829,7 @@ GameObject:
   - component: {fileID: 4086928569863028543}
   - component: {fileID: 7029205960175549232}
   - component: {fileID: 7029205960175549233}
+  - component: {fileID: 7029205960175549234}
   m_Layer: 0
   m_Name: Palm.002
   m_TagString: Untagged
@@ -4049,6 +4088,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &7029205960175549234
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6654932117210957641}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!33 &7062092772594290603
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4152,6 +4207,7 @@ GameObject:
   - component: {fileID: 4477580552869859566}
   - component: {fileID: 6368082032255392984}
   - component: {fileID: 8608181667655218243}
+  - component: {fileID: 8608181667655218244}
   m_Layer: 0
   m_Name: Palm.008
   m_TagString: Untagged
@@ -4216,6 +4272,7 @@ GameObject:
   - component: {fileID: 2736442923469328175}
   - component: {fileID: 7321346472491855127}
   - component: {fileID: 7326343070478332336}
+  - component: {fileID: 7326343070478332337}
   m_Layer: 0
   m_Name: Palm.005
   m_TagString: Untagged
@@ -4245,6 +4302,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &7326343070478332337
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7326343070478332335}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!4 &7345164779278993168
 Transform:
   m_ObjectHideFlags: 0
@@ -4641,6 +4714,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &7997964654558457476
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560751303397517900}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!23 &8006750179806944476
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4708,6 +4797,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &8006750179806944478
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951085383654085104}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!4 &8072317936869093548
 Transform:
   m_ObjectHideFlags: 0
@@ -4913,6 +5018,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &8233163978682981114
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3259938019815214527}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!1 &8252493889462523785
 GameObject:
   m_ObjectHideFlags: 0
@@ -4925,6 +5046,7 @@ GameObject:
   - component: {fileID: 966942732108464255}
   - component: {fileID: 9054998880324610829}
   - component: {fileID: 9054998880324610830}
+  - component: {fileID: 9054998880324610831}
   m_Layer: 0
   m_Name: Palm
   m_TagString: Untagged
@@ -5025,6 +5147,7 @@ GameObject:
   - component: {fileID: 6308709173885452690}
   - component: {fileID: 1142729613448403800}
   - component: {fileID: 8566125097884360466}
+  - component: {fileID: 8566125097884360467}
   m_Layer: 0
   m_Name: Palm.007
   m_TagString: Untagged
@@ -5054,6 +5177,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &8566125097884360467
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8566125097884360465}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!33 &8587025575814939173
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5099,6 +5238,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &8608181667655218244
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7137564377166653461}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!1 &8619372031156989722
 GameObject:
   m_ObjectHideFlags: 0
@@ -5152,6 +5307,7 @@ GameObject:
   - component: {fileID: 7996301224134657529}
   - component: {fileID: 3802842729719989178}
   - component: {fileID: 8669625644509213912}
+  - component: {fileID: 8669625644509213913}
   m_Layer: 0
   m_Name: Palm.009
   m_TagString: Untagged
@@ -5181,6 +5337,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &8669625644509213913
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669625644509213911}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!4 &8814669300901928958
 Transform:
   m_ObjectHideFlags: 0
@@ -5293,6 +5465,7 @@ GameObject:
   - component: {fileID: 7062092772594290603}
   - component: {fileID: 6660549771435476841}
   - component: {fileID: 8874160680377001904}
+  - component: {fileID: 8874160680377001905}
   m_Layer: 0
   m_Name: Palm.004
   m_TagString: Untagged
@@ -5322,6 +5495,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &8874160680377001905
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8874160680377001903}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!23 &8887330731463552510
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5401,6 +5590,7 @@ GameObject:
   - component: {fileID: 6179796549879991806}
   - component: {fileID: 340430892798231560}
   - component: {fileID: 8894231750757760439}
+  - component: {fileID: 8894231750757760440}
   m_Layer: 0
   m_Name: TriplePalms
   m_TagString: Untagged
@@ -5430,6 +5620,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5771809108326736679, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &8894231750757760440
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894231750757760438}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.111, y: 2.707, z: 2.0970001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.179, y: 2.5100002, z: 0.209}
+  m_TimeToStationary: 0.5
 --- !u!23 &9054998880324610829
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5497,6 +5703,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7393208624950175828, guid: 589efb82e39695d4c8c9d3069a07fb5c, type: 3}
+--- !u!208 &9054998880324610831
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252493889462523785}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8980001, y: 3.1660001, z: 1.8980001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.045, y: 2.7600002, z: -0.11400001}
+  m_TimeToStationary: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
