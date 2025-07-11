@@ -54,6 +54,7 @@ public class NPCMovement : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, player.position) < 2f)
             {
+                SetIdle();
                 Attack();
             }
             else
@@ -109,5 +110,13 @@ public class NPCMovement : MonoBehaviour
         }
 
         return randomPosition;
+    }
+
+    public void DealDamage(int damage)
+    {
+        if (Vector3.Distance(transform.position, player.position) < 2.5f)
+        {
+            player.GetComponent<FPSController>().TakeDamage(damage);
+        }
     }
 }

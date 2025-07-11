@@ -23,10 +23,17 @@ public class FPSController : MonoBehaviour
     public float walkRegenRate = 0.05f;
     public float drainRate = 0.3f;
 
+    public int health = 100;
+
     public Slider staminaBar;
-    public Image fillImage;
-    Color minColor = Color.red;
-    Color maxColor = Color.green;
+    public Image staminaFillImage;
+    Color staminaMinColor = Color.red;
+    Color staminaMaxColor = Color.green;
+
+    public Slider healthBar;
+    public Image healthFillImage;
+    Color healthMinColor = Color.red;
+    Color healthMaxColor = Color.green;
 
     // Store isIdle and isRunning as fields so they can be shared between methods
     bool isIdle = false;
@@ -128,8 +135,23 @@ public class FPSController : MonoBehaviour
         if (staminaBarUpdateCounter >= staminaBarUpdateInterval)
         {
             float valuePercent = staminaBar.value / staminaBar.maxValue;
-            fillImage.color = Color.Lerp(Color.red, Color.green, valuePercent);
+            staminaFillImage.color = Color.Lerp(staminaMinColor, staminaMaxColor, valuePercent);
             staminaBarUpdateCounter = 0;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        float valuePercent = health / 100.0f;
+        healthBar.value = Mathf.Clamp(valuePercent, 0, healthBar.maxValue);
+        healthFillImage.color = Color.Lerp(healthMinColor, healthMaxColor, valuePercent);
+        if (health <= 0)
+        {
+            // Handle player death here
+            Debug.Log("Player has died.");
+            // You can add more logic here, like restarting the game or showing a game over screen.
+            Time.timeScale = 0;
         }
     }
 }
